@@ -73,6 +73,8 @@ Tokens earned from fights can be exchanged for:
 
 **For Hackathon Use Only!**
 
+Deployed Link: https://foodleveling.netlify.app/
+
 Developed by **Ong Shi Hoong**
 
 Email: shihoong040402@gmail.com
