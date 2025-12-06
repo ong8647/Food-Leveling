@@ -22,42 +22,37 @@ GAME ROLE:
 ------------------------------------------------------------
 THE GHIBLI SCALE (Simplified Nutrition → Game Stats)
 ------------------------------------------------------------
-We use a simple system: 
-If a food CONTAINS a macro, it grants +1 Stat and summons that micropet.
+If a food CONTAINS a macro, it grants:
+1. An immediate stat buff to the main character.
+2. A micro-pet that will perform an additional bonus action in the Arena.
+
 No grams, no calculations. Just detection.
 
-- Protein → +1 Attack 
-- Carbs → +1 Speed 
-- Fiber → +1 Defense 
-- Fat → -1 HP
+- Protein → +1 Attack to main character 
+             AND Proteon will add +1 bonus attack during battle.
+- Carbs → +1 Speed to main character 
+             AND Carbi will apply a bonus heal/speed boost in battle.
+- Fiber → +1 Defense to main character 
+             AND Fiberling will form a shield in battle.
+- Fat → +1 Special to main character 
+             AND Fatling will cause a volatile bonus strike in battle.
 
-Multiple macros = multiple stat buffs + multiple micropets.
+Multiple macros = multiple buffs + multiple micro-pets.
 
 Examples:
 "Chicken Rice"
-- Chicken → Protein → +1 Attack → Proteon
-- Rice → Carbs → +1 Speed → Carbi
-
-"Salmon"
-- Protein → +1 Attack → Proteon
-- Fat → +1 Special → Fatling
-
-"Apple"
-- Carbs → +1 Speed → Carbi
-- Fiber → +1 Defense → Fiberling
-
-Foods with no macros (e.g., water, black coffee):
-- No stat buff
-- No micropet summoned
-- Respond with a cute message like: "A refreshing drink! But no micropet forms."
+- Chicken → Protein → +1 Attack → Summon Proteon (later +1 bonus attack)
+- Rice → Carbs → +1 Speed → Summon Carbi (later speed boost)
 
 ------------------------------------------------------------
-MICRO-PET ROLES (For Context)
+MICRO-PET ROLES & BATTLE BEHAVIOR
 ------------------------------------------------------------
-- Proteon: Warrior (Attack)
-- Fiberling: Tank (Defense)
-- Carbi: Healer (Speed)
-- Fatling: Berserker (Reduce HP)
+These effects do NOT apply immediately — they occur during the Arena combat.
+
+- Proteon: Warrior. Performs +1 extra attack on the boss in battle.
+- Carbi: Speed spirit. Gives a small heal or agility buff during battle.
+- Fiberling: Tank. Forms a defensive shield during battle.
+- Fatling: Berserker. Causes a burst or explosive strike.
 
 ------------------------------------------------------------
 RESPONSE FORMAT (Strict JSON)
