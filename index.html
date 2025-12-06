@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Food Leveling</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Nunito', 'sans-serif'],
+              display: ['Fredoka', 'sans-serif'],
+            },
+            colors: {
+              ghibli: {
+                cream: '#fcf9ea',
+                green: '#6b9c68',
+                blue: '#5b8cba',
+                red: '#d66b6b',
+                dark: '#2c3e50',
+                gold: '#e6c229'
+              }
+            },
+            animation: {
+              'float': 'float 3s ease-in-out infinite',
+              'bounce-gentle': 'bounce-gentle 2s infinite',
+              'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'shake': 'shake 0.5s cubic-bezier(.36,.07,.19,.97) both',
+              'tackle': 'tackle 0.5s ease-in-out',
+              'defend-stance': 'defend-stance 1s ease-in-out',
+              'flash-red': 'flash-red 0.5s ease-in-out',
+              'flash-white': 'flash-white 0.3s ease-in-out',
+              'fade-up': 'fade-up 1.5s ease-out forwards',
+              'pop-in-stay': 'pop-in-stay 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
+              'zoom-attack': 'zoom-attack 0.6s ease-in-out',
+              'punch-attack': 'punch-attack 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+              'shield-pulse': 'shield-pulse 0.8s ease-out',
+              'shield-bloom': 'shield-bloom 1s ease-out',
+              'fade-in': 'fade-in 0.5s ease-out',
+              'leaf-slash': 'leaf-slash 0.6s ease-out forwards',
+              'thunder-strike': 'thunder-strike 0.5s ease-out forwards',
+              'rock-throw': 'rock-throw 0.6s ease-in forwards',
+              'damage-float': 'damage-float 1s ease-out forwards',
+            },
+            keyframes: {
+              float: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-10px)' },
+              },
+              'bounce-gentle': {
+                '0%, 100%': { transform: 'translateY(-5%)', animationTimingFunction: 'cubic-bezier(0.8, 0, 1, 1)' },
+                '50%': { transform: 'translateY(0)', animationTimingFunction: 'cubic-bezier(0, 0, 0.2, 1)' },
+              },
+              shake: {
+                '10%, 90%': { transform: 'translate3d(-1px, 0, 0)' },
+                '20%, 80%': { transform: 'translate3d(2px, 0, 0)' },
+                '30%, 50%, 70%': { transform: 'translate3d(-4px, 0, 0)' },
+                '40%, 60%': { transform: 'translate3d(4px, 0, 0)' }
+              },
+              tackle: {
+                '0%': { transform: 'translateX(0)' },
+                '25%': { transform: 'translateX(-20px) scale(0.9)' },
+                '50%': { transform: 'translateX(40px) scale(1.1)' },
+                '100%': { transform: 'translateX(0)' }
+              },
+              'defend-stance': {
+                '0%': { transform: 'scale(1)' },
+                '30%': { transform: 'scale(0.9) translateY(5px)', filter: 'brightness(1.2)' },
+                '70%': { transform: 'scale(0.95) translateY(2px)' },
+                '100%': { transform: 'scale(1)' }
+              },
+              'flash-red': {
+                '0%, 100%': { filter: 'none' },
+                '50%': { filter: 'sepia(1) saturate(1000%) hue-rotate(-50deg)' } 
+              },
+               'flash-white': {
+                '0%, 100%': { filter: 'brightness(100%)' },
+                '50%': { filter: 'brightness(300%)' } 
+              },
+              'fade-up': {
+                '0%': { opacity: '0', transform: 'translateY(5px)' },
+                '20%': { opacity: '1', transform: 'translateY(0)' },
+                '80%': { opacity: '1', transform: 'translateY(-10px)' },
+                '100%': { opacity: '0', transform: 'translateY(-15px)' }
+              },
+              'pop-in-stay': {
+                '0%': { opacity: '0', transform: 'translateY(5px) scale(0.8)' },
+                '100%': { opacity: '1', transform: 'translateY(-8px) scale(1)' } 
+              },
+              'zoom-attack': {
+                '0%': { transform: 'translate(0,0) scale(1)' },
+                '50%': { transform: 'translate(50px, -20px) scale(1.5) rotate(15deg)' },
+                '100%': { transform: 'translate(0,0) scale(1)' }
+              },
+              'punch-attack': {
+                '0%': { transform: 'translateX(0)' },
+                '40%': { transform: 'translateX(-10px)' },
+                '60%': { transform: 'translateX(40px) scale(1.2)' },
+                '100%': { transform: 'translateX(0)' }
+              },
+              'shield-pulse': {
+                '0%': { transform: 'scale(1)', boxShadow: '0 0 0 0 rgba(107, 156, 104, 0.7)' },
+                '70%': { transform: 'scale(1.2)', boxShadow: '0 0 0 20px rgba(107, 156, 104, 0)' },
+                '100%': { transform: 'scale(1)', boxShadow: '0 0 0 0 rgba(107, 156, 104, 0)' }
+              },
+              'shield-bloom': {
+                '0%': { transform: 'scale(0.8)', opacity: '0', border: '2px solid #60a5fa' },
+                '50%': { opacity: '0.8', border: '4px solid #3b82f6' },
+                '100%': { transform: 'scale(1.5)', opacity: '0', border: '2px solid #93c5fd' }
+              },
+              'fade-in': {
+                '0%': { opacity: '0' },
+                '100%': { opacity: '1' }
+              },
+              'leaf-slash': {
+                '0%': { opacity: '0', transform: 'translate(0,0) rotate(0deg) scale(0.5)' },
+                '20%': { opacity: '1', transform: 'translate(10px, -10px) rotate(45deg) scale(1)' },
+                '100%': { opacity: '0', transform: 'translate(120px, -80px) rotate(90deg) scale(1.2)' }
+              },
+              'thunder-strike': {
+                '0%': { opacity: '0', transform: 'translate(50px, -150px) scaleY(0.2)' },
+                '30%': { opacity: '1', transform: 'translate(50px, 0) scaleY(1)' },
+                '50%': { filter: 'brightness(200%)' },
+                '100%': { opacity: '0', transform: 'translate(50px, 0) scaleY(1.2)' }
+              },
+              'rock-throw': {
+                '0%': { opacity: '0', transform: 'translate(0,0) rotate(0deg) scale(0.5)' },
+                '20%': { opacity: '1' },
+                '100%': { opacity: '0', transform: 'translate(120px, -80px) rotate(720deg) scale(1)' }
+              },
+              'damage-float': {
+                '0%': { opacity: '0', transform: 'translate(-50%, 0) scale(0.5)' },
+                '20%': { opacity: '1', transform: 'translate(-50%, -20px) scale(1.5)' },
+                '100%': { opacity: '0', transform: 'translate(-50%, -60px) scale(1)' }
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      body {
+        background-color: #fcf9ea;
+        color: #2c3e50;
+      }
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1; 
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #888; 
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #555; 
+      }
+
+      /* Battle Background Pattern */
+      .bg-battle-grid {
+        background-image: linear-gradient(#e5e7eb 1px, transparent 1px), linear-gradient(90deg, #e5e7eb 1px, transparent 1px);
+        background-size: 40px 40px;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.2.1",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.1/",
+    "react/": "https://aistudiocdn.com/react@^19.2.1/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.31.0",
+    "vite": "https://aistudiocdn.com/vite@^7.2.6",
+    "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.1.1",
+    "path": "https://aistudiocdn.com/path@^0.12.7"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/index.tsx"></script>
+  </body>
+</html>

@@ -1,0 +1,7 @@
+{
+  "name": "Food Leveling: Heart Attack Breaker",
+  "description": "A Ghibli-inspired RPG where you battle heart disease with nutrition-powered pets.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
