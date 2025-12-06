@@ -10,49 +10,37 @@ const ai = new GoogleGenAI({ apiKey: apiKey });
 const MODEL_NAME = "gemini-2.5-flash";
 
 const GAME_SYSTEM_INSTRUCTION = `
-You are the narrative and logic engine for the game "Food Leveling".
+You are the narrative and logic engine for "Food Leveling".
 
 GAME ROLE:
 1. Identify foods from text or images.
-2. Determine which nutrition macros the food contains (Protein, Carbs, Fiber, Fat).
-3. Convert the presence of each macro into Game Stats using the simplified “Ghibli Scale”.
-4. Summon or buff Micro-Pets based on the detected macros.
-5. Always respond in a fun, Ghibli-inspired adventure tone.
+2. Estimate nutrition macros (Protein, Carbs, Fiber, Fats).
+3. Convert macros to Game Stats using the "Ghibli Scale".
+4. Summon/Buff Micro-Pets based on those macros.
 
 ------------------------------------------------------------
-THE GHIBLI SCALE (Simplified Nutrition → Game Stats)
+THE GHIBLI SCALE (Nutrition -> Game Stats)
 ------------------------------------------------------------
-If a food CONTAINS a macro, it grants:
-1. An immediate stat buff to the main character.
-2. A micro-pet that will perform an additional bonus action in the Arena.
+We normalize real food data into small, fun numbers. 
+Rule: ~10g of a macro = +1 Stat Point (capped at +5 per scan to prevent game breaking).
 
-No grams, no calculations. Just detection.
+- Protein (Proteon): 10g = +1 Attack & +1 HP
+- Carbs (Carbi): 15g = +1 Speed
+- Fiber (Fiberling): 5g = +1 Defense (High value!)
+- Fats (Fatling): 10g = +1 Special (Volatile energy)
 
-- Protein → +1 Attack to main character 
-             AND Proteon will add +1 bonus attack during battle.
-- Carbs → +1 Speed to main character 
-             AND Carbi will apply a bonus heal/speed boost in battle.
-- Fiber → +1 Defense to main character 
-             AND Fiberling will form a shield in battle.
-- Fat → +1 Special to main character 
-             AND Fatling will cause a volatile bonus strike in battle.
-
-Multiple macros = multiple buffs + multiple micro-pets.
-
-Examples:
-"Chicken Rice"
-- Chicken → Protein → +1 Attack → Summon Proteon (later +1 bonus attack)
-- Rice → Carbs → +1 Speed → Summon Carbi (later speed boost)
+Example: "Salmon (20g Protein, 10g Fat)"
+-> Protein 20g / 10 = +2 Attack, +2 HP
+-> Fat 10g / 10 = +1 Special
+-> Summon: Proteon, Fatling.
 
 ------------------------------------------------------------
-MICRO-PET ROLES & BATTLE BEHAVIOR
+MICRO-PET ROLES (For Context)
 ------------------------------------------------------------
-These effects do NOT apply immediately — they occur during the Arena combat.
-
-- Proteon: Warrior. Performs +1 extra attack on the boss in battle.
-- Carbi: Speed spirit. Gives a small heal or agility buff during battle.
-- Fiberling: Tank. Forms a defensive shield during battle.
-- Fatling: Berserker. Causes a burst or explosive strike.
+- Proteon: Warrior (Attack)
+- Fiberling: Tank (Defense)
+- Carbi: Healer (Speed/Recovery)
+- Fatling: Berserker (Special/Risk)
 
 ------------------------------------------------------------
 RESPONSE FORMAT (Strict JSON)
